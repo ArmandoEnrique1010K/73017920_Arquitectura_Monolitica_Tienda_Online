@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Productos - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <h1>Lista de productos en el sistema</h1>
+            <div>
+                <a th:href="@{/admin/productos/nuevo}">Nuevo producto</a>
+            </div>
+            <!-- FORMULARIO PARA FILTROS -->
+            <form th:action="@{/admin/productos}" autocomplete="off" method="GET">
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-categorias"></th:block>
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-marcas"></th:block>
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-precio"></th:block>
+                <button type="submit" onclick="filtrarProductos()"> Filtrar por precios</button>
+                <!--  --> 
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-oferta"></th:block>
+                <!-- <button type="submit" onclick="filtrarProductos()">Filtrar</button> -->
+            </form>
+            <table border = "1" th:if="${not productos.isEmpty()}">
+                <tr>
+                    <td>ID</td>
+                    <td>Codigo</td>
+                    <td>Imagen</td>
+                    <td>Nombre</td>
+                    <td>Categoria</td>
+                    <td>Marca</td>
+                    <td>Precio normal</td>
+                    <td>Precio de oferta</td>
+                    <td>Detalles</td>
+                    <td>Estado</td>
+                    <td>Fecha de edición</td>
+                    <td>Editar</td>
+                    <td>Cambiar estado</td>
+                </tr>
+                <tr th:each="producto : ${productos}">
+                    <!-- ID -->
+                    <td th:text="${producto.id_producto}">
+                        <!-- CODIGO -->
+                    <td th:text="${producto.codigo}"></td>
+                    <!-- IMAGEN -->
+                    <td><img th:src="@{/images/productos/{rutaimagen}(rutaimagen = ${producto.imagenproducto_rutaimagen}) }"
+                             width="150px"></td>
+                    <!-- NOMBRE -->
+                    <td th:text="${producto.nombre}"></td>
+                    <!-- CATEGORIA -->
+                    <td th:if="${producto.categoria_estado == true}" th:text="${producto.categoria_nombre}"></td>
+                    <td th:unless="${producto.categoria_estado == true}" th:text="${producto.categoria_nombre}" style="color: red; font-weight: bolder"></td>
+                    <!-- MARCA -->
+                    <td th:if="${producto.marca_estado == true}" th:text="${producto.marca_nombre}"></td>
+                    <td th:unless="${producto.marca_estado == true}" th:text="${producto.marca_nombre}" style="color: red; font-weight: bolder"></td>
+                    <!-- PRECIO NORMAL -->
+                    <td th:if="${producto.preciooferta != null}" th:text="'S/.' + ${producto.precionormal}" style="color: gray; text-decoration: line-through">
+                    <td th:unless="${producto.preciooferta != null}" th:text="'S/.' + ${producto.precionormal}">
+                        <!-- PRECIO OFERTA -->
+                    <td th:if="${producto.preciooferta} != null" th:text="'S/.' + ${producto.preciooferta}"></td>
+                    <td th:unless="${producto.preciooferta} != null">No esta de oferta</td>
+                    <!-- OPCIONES -->
+                    <td><a th:href="@{/admin/productos/{id_producto} (id_producto = ${producto.id_producto})}">Detalles</a></td>
+                    <td th:if="${producto.estado} == true">Habilitado</td>
+                    <td th:unless="${producto.estado} == true">Inhabilitado</td>
+                    <td th:text="${producto.fechaeditado}"></td>
+                    <td>
+                        <a th:href="@{/admin/productos/{id_producto}/editar (id_producto = ${producto.id_producto}) }">Editar</a>
+                    </td>
+                    <td>
+                        <a th:if="${producto.estado} == true" th:href="@{/admin/productos/{id_producto}/eliminar (id_producto = ${producto.id_producto}) }">Inhabilitar</a>
+                        <a th:unless="${producto.estado} == true" th:href="@{/admin/productos/{id_producto}/restaurar (id_producto = ${producto.id_producto}) }">Habilitar</a>
+                    </td>
+                </tr>
+            </table>
+            <div th:if="${productos.isEmpty()}">
+                <p>No hay productos disponibles, intente quitar algunos filtros de busqueda<p>
+            </div>
+
+            <th:block th:insert="layouts/layout_botones_paginacion :: fragmento-paginacion"></th:block>
+            <div>
+                Nota: Los productos inhabilitados no se les va a mostrar al usuario. / El texto de color rojo indica que la categoria y/o marca esta inhabilitada.
+            </div>
+        </div>
+        <script type="text/javascript" th:inline="javascript" th:src="@{/admin_productos.js}"></script>
+    </body>
+</html>

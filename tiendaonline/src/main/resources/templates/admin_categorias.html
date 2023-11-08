@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Categorias - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <h1>Lista de categorias en el sistema</h1>
+            <div>
+                <a th:href="@{/admin/categorias/nuevo}">Nueva categoria</a>
+            </div>
+            <table border = "1">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Estado</td>
+                    <td>Cambiar de nombre</td>
+                    <td>Modificar estado</td>
+                </tr>
+                <tr th:each="categoria : ${categorias}">
+                    <td th:text="${categoria.nombre}"></td>
+                    <td th:if="${categoria.estado} == true">Habilitado</td>
+                    <td th:unless="${categoria.estado} == true">Inhabilitado</td>
+                    <td>
+                        <a th:href="@{/admin/categorias/{id_categoria}/editar (id_categoria = ${categoria.id_categoria}) }">Editar</a>
+                    </td>
+                    <td>
+                        <a th:if="${categoria.estado} == true" th:href="@{/admin/categorias/{id_categoria}/eliminar (id_categoria = ${categoria.id_categoria}) }">Inhabilitar</a>
+                        <a th:unless="${categoria.estado} == true" th:href="@{/admin/categorias/{id_categoria}/restaurar (id_categoria = ${categoria.id_categoria}) }">Habilitar</a>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                Nota: Al inhabilitar una categoria, todos los productos que correspondan a esa categoria no se les va a mostrar al usuario.
+            </div>
+        </div>
+    </body>
+</html>

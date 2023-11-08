@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Carrito</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_barra_menu :: fragmento-menu"></th:block>
+            <h1>Carrito</h1>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <td>Nombre</td>
+                        <td>Precio unitario</td>
+                        <td>Cantidad</td>
+                        <td>Total</td>
+                    </tr>  
+                </thead>
+                <tbody th:if="${carrito != null}">
+                    <tr th:each="detalle : ${detallesCarrito}">
+                        <td th:text="${detalle.productodto.nombre}"></td>
+                        <td th:text="${detalle.cantidad}"></td>
+                        <td th:text="${detalle.productodto.preciooferta != null ? detalle.productodto.preciooferta : detalle.productodto.precionormal}"></td>
+                        <td th:text="${detalle.total}"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_barra_menu :: fragmento-menu"></th:block>
+            <h1>Iniciar sesion</h1>
+            <form th:action="@{/loginProcessingUrl}" method="POST" autocomplete="off">
+                <div>
+                    <label for="txtemail">Email: </label>
+                    <input id="txtemail" type="text" name="username" placeholder="digite su email ID">
+                </div>
+                <div>
+                    <label for="txtcontraseña">Contraseña: </label>
+                    <input id="txtcontraseña" type="password" name="password" placeholder="digite su contraseña">
+                </div> 
+                <div>
+                    <button type="submit">Iniciar sesión</button>
+                </div>
+                <div>
+                    Si no tienes una cuenta, <a th:href="@{/registro}"> registrate aqui</a>
+                </div>
+                <div>Mensaje: </div>
+                <!-- SI EL PARAMETRO "error" APARECE EN LA URL -->
+                <div th:if="${param.error}">
+                    <div>Usuario o contraseña invalidos</div>
+                </div>
+                <!-- SI EL PARAMETRO "logout" APARECE EN LA URL -->
+                <div th:if="${param.logout}">
+                    <div>Ha cerrado sesión exitosamente</div>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

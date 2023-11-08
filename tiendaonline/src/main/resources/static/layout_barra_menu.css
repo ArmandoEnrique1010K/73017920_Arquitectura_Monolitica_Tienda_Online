@@ -1,0 +1,86 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* DEFINIR AQUI LAS "VARIABLES" QUE SE VAN A UTILIZAR */
+:root{
+    --color-blanco: rgb(255, 255, 255);
+    --color-negro: rgb(0, 0, 0);
+    --color-primario: rgb(219, 239, 225);
+    --color-secundario: rgb(63, 134, 146);
+    --color-terciario: rgb(13, 97, 106);
+    --tipo-fuente-1: 'Roboto', sans-serif;
+    --tamaño-fuente-1: 14px;
+    --tamaño-fuente-2: 15px;
+}
+
+.caja-barra-menu{
+    width: 100%;
+    display: flex;
+    flex-direction: column
+}
+
+.barra-menu-1{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+.barra-menu-2{
+    display: flex;
+    flex-direction: row
+}
+
+.caja-logo{
+    flex-grow: 0
+}
+
+.logo{
+    height: 100px;
+    padding: 0 2em;
+}
+
+.caja-busqueda{
+    flex-grow: 1
+}
+
+.caja-registro{
+    flex-grow: 0;
+    display: flex;
+    flex-direction: row;
+}
+
+.formulario-busqueda{
+    display: flex;
+    flex-direction: row;
+    padding: 0 1.5em;
+}
+
+.input-busqueda{
+    background-color: aquamarine;
+    width: 100%;
+    height: 3em;
+    text-indent: 1em;
+
+}
+.boton-busqueda{
+    background-color: red;
+    padding: 0 1em;
+}
+
+.opcion-registro{
+    padding: 1em 1em;
+    background-color: orange;
+}
+
+.opcion-registro:hover{
+    background-color: red;
+}
+
+.opcion-registro a{
+    display: block;
+}
+
+

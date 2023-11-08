@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/layout_barra_menu.css}">
+    </head>
+    <body>
+        <!-- PLANTILLA PARA LA BARRA DE MENÚ ESTATICA DE LA APLICACIÓN -->
+        <div class="caja-barra-menu" th:fragment="fragmento-menu">
+            <div class="barra-menu-1">
+                <div class="caja-logo">
+                    <!-- PAGINA DE INICIO -->
+                    <a th:href="@{/}"><img th:src="@{/logo.png}" class="logo"></a>
+
+                </div>
+                <div class="caja-busqueda">
+                    <!-- BARRA DE BUSQUEDA DE PRODUCTOS -->
+                    <form class="formulario-busqueda" th:action="@{/productos/buscar}" method="GET">
+                        <!-- BARRA PARA INTRODUCIR TEXTO -->
+                        <input class="input-busqueda" type="search" name="p-palabraclave" 
+                               placeholder="Buscar productos..." autocomplete="off" 
+                               th:value="${palabraClave}">
+                        <!-- BOTÓN PARA INICIAR BUSQUEDA -->
+                        <button class="boton-busqueda" type="submit">
+                            Buscar
+                        </button>
+                    </form>
+                </div>
+                <div class="caja-registro">
+                    <!-- MOSTRAR SOLAMENTE A LOS ADMINISTRADORES -->
+                    <div class="opcion-registro" sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/admin}">Administradores</a>
+                    </div>
+                    <!-- SI NO SE HA INICIADO SESION SE VA A MOSTRAR -->
+                    <div class="opcion-registro" sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/registro}">Registrarse</a>
+                    </div>
+                    <div class="opcion-registro" sec:authorize="!isAuthenticated()">
+                        <a th:href="@{/login}">Iniciar sesion</a>
+                    </div>
+                    <!-- SI SE HA INICIADO SESION, VA A MOSTRAR -->
+                    <div class="opcion-registro" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/logout}">Cerrar sesion</a>
+                    </div>
+                    <div>
+                        <!-- CARRITO -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- PRODUCTOS -->
+            <div class="barra-menu-2">
+
+                <div>
+                    <!-- TODOS LOS PRODUCTOS -->
+                    <a th:href="@{/productos}">Comprar todo</a>
+                </div>
+
+                <th:block th:each="categoria : ${categorias}">
+                    <div>
+                        <!-- PRODUCTOS POR CATEGORIA -->
+                        <a th:href="@{/productos/{nombre}(nombre=${categoria.nombre})}">
+                            <span th:text="${categoria.nombre}"></span>
+                        </a>
+                    </div>
+                </th:block>
+
+                <div>
+                    <!-- PRODUCTOS EN OFERTA -->
+                    <a th:href="@{/productos/oferta}">Oferta</a>
+                </div>
+
+            </div>
+        </div>
+    </body>
+</html>
+
+<!--
+
+-->

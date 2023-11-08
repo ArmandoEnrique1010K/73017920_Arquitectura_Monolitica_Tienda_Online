@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+
+        <!-- POR EL MOMENTO, SE DEFINE COMO TABLA -->
+        <div th:fragment="fragmento-productos">
+            <table border="1" th:if="${not productos.isEmpty()}">
+                <tr>
+                    <td>Imagen</td>
+                    <td>Codigo</td>
+                    <td>Nombre</td>
+                    <td>Marca</td>
+                    <td>Precio normal</td>
+                    <td>Precio de oferta</td>
+                    <td>Detalles</td>
+                    <!----
+
+                    <td>Agregar</td>
+                    ------>
+                </tr>
+                <tr th:each="producto : ${productos}">
+                    <td><img th:src="@{/images/productos/{rutaimagen}(rutaimagen = ${producto.imagenproducto_rutaimagen}) }"
+                             width="150px"></td>
+                    <td th:text="${producto.codigo}"></td>
+                    <td th:text="${producto.nombre}"></td>
+                    <td th:text="${producto.marca_nombre}"></td>
+                    <!-- PRECIO NORMAL -->
+                    <td th:if="${producto.preciooferta != null}" th:text="'S/.' + ${producto.precionormal}" style="color: gray; text-decoration: line-through">
+                    <td th:unless="${producto.preciooferta != null}" th:text="'S/.' + ${producto.precionormal}">
+                        <!-- PRECIO OFERTA -->
+                    <td th:if="${producto.preciooferta} != null" th:text="'S/.' + ${producto.preciooferta}"></td>
+                    <td th:unless="${producto.preciooferta} != null"></td>
+                    <!-- DETALLES -->
+                    <td><a th:href="@{/productos/{categoriaNombre}/{id_producto}(categoriaNombre=${producto.categoria_nombre},id_producto=${producto.id_producto})}">Detalles</a></td>
+                    <!----
+                    <td>
+                        <form th:action = "@{/cart}" method="POST">
+                            <input type="hidden" th:name="id_producto" th:value="${producto.id_producto}">
+                            <div>
+                                <input type="number" id="cantidad" name="cantidad" min="1" value="1">
+                            </div>
+                            <button type="submit">Añadir 1 unidad al carrito</button>
+                        </form>
+                    </td>
+                    -->
+                </tr>
+            </table>
+            <div th:if="${productos.isEmpty()}">
+                <p>No hay productos disponibles, intente quitar algunos filtros de busqueda<p>
+            </div>
+        </div>
+    </body>
+</html>

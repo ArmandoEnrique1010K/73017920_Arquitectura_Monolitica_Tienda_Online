@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Oferta</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_barra_menu :: fragmento-menu"></th:block>
+            <h1>Oferta</h1>
+            <!-- FORMULARIO PARA FILTROS -->
+            <form th:action="@{/productos}" autocomplete="off" method="GET">
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-categorias"></th:block>
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-marcas"></th:block>
+                <th:block th:insert="layouts/layout_filtros_busqueda :: fragmento-precio"></th:block>
+                <button type="submit" onclick="filtrarProductos()"> Filtrar por precios</button>
+            </form>
+
+            <th:block th:insert="layouts/layout_cuadros_productos :: fragmento-productos"></th:block>
+            <th:block th:insert="layouts/layout_botones_paginacion :: fragmento-paginacion"></th:block>
+        </div>
+        <script type="text/javascript" th:inline="javascript" th:src="@{/productos_oferta.js}"></script>
+    </body>
+</html>

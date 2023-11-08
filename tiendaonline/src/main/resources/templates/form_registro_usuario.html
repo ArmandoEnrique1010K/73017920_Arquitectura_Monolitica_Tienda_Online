@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_barra_menu :: fragmento-menu"></th:block>
+            <h1>Registro</h1>
+            <form th:action="@{/registro}" method="POST" th:object="${datosUsuarioDto}" autocomplete="off">
+                <div>
+                    <label for="txtnombre">Nombre: </label>
+                    <input id="txtnombre" type="text" name="nombre" th:field="*{nombre}">
+                    <span style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+                </div>
+                <div>
+                    <label for="txtapellido">Apellido: </label>
+                    <input id="txtapellido" type="text" name="apellido" th:field="*{apellido}">
+                    <span style="color: red" th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
+                </div>
+                <div>
+                    <label for="txtedad">Edad: </label>
+                    <input id="txtedad" type="number" name="edad" th:field="*{edad}">
+                    <span style="color: red" th:if="${#fields.hasErrors('edad')}" th:errors="*{edad}"></span>
+                </div>
+                <div>
+                    <label for="txtdni">Dni: </label>
+                    <input id="txtdni" type="number" name="dni" th:field="*{dni}">
+                    <span style="color: red" th:if="${#fields.hasErrors('dni')}" th:errors="*{dni}"></span>
+                </div>
+
+                <div>
+                    <span>Sexo: </span>
+                    <input id="rbomasculino" type="radio" name="sexo" th:field="*{sexo}" th:value="masculino"><label for="rbomasculino">Masculino</label>
+                    <input id="rbofemenino" type="radio" name="sexo" th:field="*{sexo}" th:value="femenino"><label for="rbofemenino">Femenino</label>
+                    <span style="color: red" th:if="${#fields.hasErrors('sexo')}" th:errors="*{sexo}"></span>
+
+                </div>
+                
+                <div>
+                    <label for="txtemail">Email: </label>
+                    <input id="txtemail" type="email" name="email" th:field="*{email}">
+                    <span style="color: red" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                    <span style="color: red" th:if="${errorEmailRepetido}" th:text="${errorEmailRepetido}"></span>
+                </div>
+
+                <div>
+                    <label for="txtcontraseña">Contraseña: </label>
+                    <input id="txtcontraseña" type="password" name="password" th:field="*{password}">
+                    <span style="color: red" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+                </div>
+                <div>
+                    <button type="submit">Registrar</button>
+                </div>
+                <!-- MENSAJES -->
+                <div th:if="${param.exito}">
+                    <div>Usted ha sido registrado en el sistema</div>
+                </div>
+                <div>
+                    Si ya tienes una cuenta, <a th:href="@{/login}"> inicia sesión aqui</a>
+                </div>
+            </form>
+        </div>
+    </body>
+</html>

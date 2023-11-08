@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <!-- PLANTILLA PARA LA BARRA DE MENÚ ESTATICA DE LA APLICACIÓN -->
+        <div th:fragment="fragmento-admin-menu">
+
+            <div>
+                <div>
+                    <!-- LINK HACIA INICIO DEL MODO ADMINISTRADOR -->
+                    <a th:href="@{/admin}">Inicio administrador</a>
+                </div>
+                
+                <div>
+                    <!-- BARRA DE BUSQUEDA DE PRODUCTOS -->
+                    <form th:action="@{/admin/productos/buscar}" method="GET">
+                        <!-- BARRA PARA INTRODUCIR TEXTO -->
+                        <input type="search" name="p-palabraclave" 
+                               placeholder="Buscar productos en el sistema..." autocomplete="off" 
+                               th:value="${palabraClave}">
+                        <!-- BOTÓN PARA INICIAR BUSQUEDA -->
+                        <button type="submit">
+                            Buscar
+                        </button>
+                    </form>
+                </div>
+                
+                <div>
+                    <!-- SALIR DEL MODO ADMINISTRADOR -->
+                    <a th:href="@{/}">Salir del modo administrador</a>
+                </div>
+                <div>
+                    <!--
+                    <div>
+                        <a th:href="@{/registro}">Registrarse</a>
+                    </div>
+                    <div>
+                        <a th:href="@{/login}">Iniciar sesion</a>
+                    </div>
+                    -->
+                    <div>
+                        <a th:href="@{/logout}">Cerrar sesion</a>
+                    </div>
+                    <div>
+                        <!-- CARRITO -->
+                    </div>
+                </div>
+
+            </div>
+            <div>
+                <!-- OPCIONES DEL ADMINISTRADOR -->
+                <div>
+                    <!-- PEDIDOS -->
+                </div>
+                <div>
+                    <!-- PRODUCTOS -->
+                    <a th:href="@{/admin/productos}">Productos</a>
+                </div>
+                <div>
+                    <!-- CATEGORIAS -->
+                    <a th:href="@{/admin/categorias}">Categorias</a>
+                </div>
+                <div>
+                    <!-- MARCAS -->
+                    <a th:href="@{/admin/marcas}">Marcas</a>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

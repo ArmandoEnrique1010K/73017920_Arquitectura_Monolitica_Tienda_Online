@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Inicio</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" th:href="@{/layout_barra_menu.css}">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_barra_menu :: fragmento-menu"></th:block>
+            <h1>BIENVENIDOS</h1>
+        </div>
+    </body>
+</html>

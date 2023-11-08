@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Producto - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body th:each="producto : ${detallesProducto}">
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <div>
+                <a th:href="@{/admin/productos}">Atras</a>
+            </div>
+            <div>
+                En: <span th:text="${producto.categoria_nombre}"></span>
+            </div>
+            <img th:src="@{/images/productos/{rutaimagen}(rutaimagen = ${producto.imagenproducto_rutaimagen}) }"
+                 width="450px">
+            <h1 th:text="${producto.nombre}"></h1>
+            <div>
+                Codigo: <span th:text="${producto.codigo}"></span>
+                <br>
+                Marca: <span th:text="${producto.marca_nombre}"></span>
+                <br>
+                <!-- PRECIO: -->
+                <span th:if="${producto.preciooferta != null}" th:text="'Precio normal: S/.' + ${producto.precionormal}" style="color: gray; text-decoration: line-through"></span>
+                <span th:unless="${producto.preciooferta != null}" th:text="'Precio normal: S/.' + ${producto.precionormal}"></span>
+                <br>
+                <span th:if="${producto.preciooferta != null}" th:text="'Precio de oferta: S/.' + ${producto.preciooferta}"></span>
+            </div>
+            <div>
+                <h3>Descripción</h3>
+                <div th:text=${producto.caracteristicasproducto_descripcion}></div>
+            </div>
+            <div>
+                <h3>Ficha tecnica</h3>
+                <div th:text=${producto.caracteristicasproducto_fichatecnica}></div>
+            </div>
+            <div>
+                Editado por ultima vez: <span th:text="${producto.fechaeditado}"></span>
+            </div>
+
+            <div>
+                Nota: Esto es una previsualización del producto, se le va a mostrar al usuario si se habilita el producto.
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Nueva Categoria - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <h1>Nueva categoria</h1>
+            <div>
+                <a th:href="@{/admin/categorias}">Regresar</a>
+            </div>
+            <form th:action="@{/admin/categorias/nuevo}" th:object="${categoriaDto}" method="POST" autocomplete="off">
+                <div>
+                    <label for="txtnombre">Nombre</label>
+                    <input id="txtnombre" name="nombre" th:field="*{nombre}" type="text">
+                    <span style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+                </div>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Editar Marca - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <h1>Editar marca seleccionada</h1>
+            <div>
+                <a th:href="@{/admin/marcas}">Regresar</a>
+            </div>
+            <form th:action="@{/admin/marcas/{id_marca}/editar (id_marca=${marcaDto.id_marca})}" th:object="${marcaDto}" method="POST" autocomplete="off">
+                <div>
+                    <label for="txtnombre">Nombre</label>
+                    <input id="txtnombre" name="nombre" th:field="*{nombre}" type="text">
+                    <span style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+                </div>
+                <button type="submit">Guardar cambios</button>
+            </form>
+        </div>
+    </body>
+</html>

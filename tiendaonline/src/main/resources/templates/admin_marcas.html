@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Marcas - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <h1>Lista de marcas en el sistema</h1>
+            <div>
+                <a th:href="@{/admin/marcas/nuevo}">Nueva marca</a>
+            </div>
+            <table border = "1">
+                <tr>
+                    <td>Nombre</td>
+                    <td>Estado</td>
+                    <td>Cambiar de nombre</td>
+                    <td>Modificar estado</td>
+                </tr>
+                <tr th:each="marca : ${marcas}">
+                    <td th:text="${marca.nombre}"></td>
+                    <td th:if="${marca.estado} == true">Habilitado</td>
+                    <td th:unless="${marca.estado} == true">Inhabilitado</td>
+                    <td>
+                        <a th:href="@{/admin/marcas/{id_marca}/editar (id_marca = ${marca.id_marca}) }">Editar</a>
+                    </td>
+                    <td>
+                        <a th:if="${marca.estado} == true" th:href="@{/admin/marcas/{id_marca}/eliminar (id_marca = ${marca.id_marca}) }">Inhabilitar</a>
+                        <a th:unless="${marca.estado} == true" th:href="@{/admin/marcas/{id_marca}/restaurar (id_marca = ${marca.id_marca}) }">Habilitar</a>
+                    </td>
+                </tr>
+            </table>
+            <div>
+                Nota: Al inhabilitar una marca, todos los productos que correspondan a esa marca no se les va a mostrar al usuario.
+            </div>
+        </div>
+    </body>
+</html>

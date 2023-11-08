@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Nuevo Producto - Administradores</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <div>
+            <th:block th:insert="layouts/layout_admin_barra_menu :: fragmento-admin-menu"></th:block>
+            <h1>Nuevo producto</h1>
+            <div>
+                <a th:href="@{/admin/productos}">Regresar</a>
+            </div>
+            <form th:action="@{/admin/productos/nuevo}" th:object="${productoDto}" method="POST" autocomplete="off" enctype="multipart/form-data">
+
+                <div>
+                    <label for="txtcodigo">Codigo</label>
+                    <input id="txtcodigo" name="codigo" th:field="*{codigo}" type="text">
+                    <span style="color: red" th:if="${#fields.hasErrors('codigo')}" th:errors="*{codigo}"></span>
+                </div>
+                <div>
+                    <label for="txtnombre">Nombre</label>
+                    <input id="txtnombre" name="nombre" th:field="*{nombre}" type="text">
+                    <span style="color: red" th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
+                </div>
+                <div>
+                    <label for="chkoferta">Oferta</label>
+                    <input id="chkoferta" name="oferta" th:field="*{oferta}" type="checkbox" value="1">
+                </div>
+                <div>
+                    <label for="txtprecionormal">Precio normal</label>
+                    <input id="txtprecionormal" name="precionormal" th:field="*{precionormal}" type="number">
+                    <span style="color: red" th:if="${#fields.hasErrors('precionormal')}" th:errors="*{precionormal}"></span>
+                </div>
+                <div>
+                    <label for="txtpreciooferta">Precio de oferta</label>
+                    <input id="txtpreciooferta" name="preciooferta" th:field="*{preciooferta}" type="number">
+                </div>
+                <div>
+                    <label for="cbocategoria">Categoria</label>
+                    <select id="cbocategoria" name="categoria_id_categoria" th:field="*{categoria_id_categoria}">
+                        <option value="">Seleccione una categoria</option>
+                        <option th:each="categoria : ${categorias}"
+                                th:value="${categoria.id_categoria}"
+                                th:text="${categoria.nombre}"></option>
+                    </select>
+                    <span style="color: red" th:if="${#fields.hasErrors('categoria_id_categoria')}" th:errors="*{categoria_id_categoria}"></span>
+                </div>
+                <div>
+                    <label for="cbomarca">Marca</label>
+                    <select id="cbomarca" name="marca_id_marca" th:field="*{marca_id_marca}">
+                        <option value="">Seleccione una marca</option>
+                        <option th:each="marca : ${marcas}"
+                                th:value="${marca.id_marca}"
+                                th:text="${marca.nombre}"></option>
+                    </select>
+                    <span style="color: red" th:if="${#fields.hasErrors('marca_id_marca')}" th:errors="*{marca_id_marca}"></span>
+                </div>
+                <div>
+                    <label for="txtdescripcion">Descripcion</label><br>
+                    <textarea id="txtdescripcion" name="caracteristicasproducto_descripcion" th:field="*{caracteristicasproducto_descripcion}"></textarea>
+                    <span style="color: red" th:if="${#fields.hasErrors('caracteristicasproducto_descripcion')}" th:errors="*{caracteristicasproducto_descripcion}"></span>
+                </div>
+                <div>
+                    <label for="txtfichatecnica">Ficha tecnica</label><br>
+                    <textarea id="txtfichatecnica" name="caracteristicasproducto_fichatecnica" th:field="*{caracteristicasproducto_fichatecnica}"></textarea>
+                    <span style="color: red" th:if="${#fields.hasErrors('caracteristicasproducto_fichatecnica')}" th:errors="*{caracteristicasproducto_fichatecnica}"></span>
+                </div>
+                <div>
+                    <!-- CAMPO PARA SUBIR IMAGEN -->
+                    <label for="btnimagen">Imagen</label>
+                    <input  id="btnimagen" name="imagenproducto_imagen" th:field="*{imagenproducto_imagen}" type="file">
+                    <span style="color: red"  th:text="${error_imagen}"></span>
+                </div>
+                <button type="submit">Guardar</button>
+            </form>
+        </div>
+    </body>
+</html>
